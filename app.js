@@ -12,11 +12,11 @@ let missed = 0;
 
 //Declare and initialize the phrases array, storing at least five strings that contain only letters and spaces, no punctuation.
 const phrases = [
-    'If you suspect deceit hit delete',
-    'Think before you click',
-    'If you see something say something',
-    'Amateurs hack systems professionals hack people',
-    'Its not data but people being eploited'
+    "If you suspect deceit hit delete",
+    "Think before you click",
+    "If you see something say something",
+    "Amateurs hack systems professionals hack people",
+    "Its not data but people being eploited"
 ];
 
 // listen for the start game button to be pressed
@@ -24,14 +24,25 @@ startButton[0].addEventListener('click', (e) => {
     const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
 });
-
+const randomNumber = Math.floor(Math.random() * phrases.length);
 // return a random phrase from an array
 function getRandomPhraseAsArray(arr) {
-    const randomNumber = Math.floor(Math.random() * arr.length);
-    let randomPhrase = arr[randomNumber];
-    console.log(randomPhrase);
+    let Phrase = arr[randomNumber];
+    console.log(Phrase);
+    return Phrase;
 }
-getRandomPhraseAsArray(phrases);
+randomPhrase = getRandomPhraseAsArray(phrases);
+function addPhraseToDisplay(arr) {
+    for (let i = 0; i < arr.length; i += 1) {
+        let letter = arr[i];
+        const li = document.createElement('li');
+        const span = document.createElement('span');  
+        span.textContent = letter;
+        li.appendChild(span);
+        phrase.appendChild(li);
+    }
+}
+addPhraseToDisplay(randomPhrase);
 // adds the letters of a string to the display
 // const addPhraseToDisplay = arr => {
     

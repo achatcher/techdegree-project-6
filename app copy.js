@@ -28,12 +28,11 @@ startButton[0].addEventListener('click', (e) => {
 });
 
 // return a random phrase from an array
-function getRandomPhraseAsArray() {
-    const randomNumber = Math.floor(Math.random() * phrases.length);
-    const generatedPhrase = phrases[randomNumber];
+function getRandomPhraseAsArray(arr) {
+    const randomNumber = Math.floor(Math.random() * arr.length);
+    const generatedPhrase = arr[randomNumber];
 }
-getRandomPhraseAsArray(generatedPhrase);
-console.log(generatedPhrase);
+generatedPhrase = getRandomPhraseAsArray(phrases);
 // check if a letter is in the phrase
 // const checkLetter = arr => {
     
