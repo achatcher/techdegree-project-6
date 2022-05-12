@@ -2,7 +2,7 @@
 const qwerty = document.getElementById('qwerty');
 
 // Get the element with the id of phrase and save it to a variable.
-const phrase = document.getElementById('phrase');
+const phrase = document.querySelector('#phrase ul');
 
 //Get the element with a class of btn__reset and save it to a variable
 const startButton = document.getElementsByClassName('btn__reset');
@@ -19,12 +19,14 @@ const phrases = [
     "Its not data but people being eploited"
 ];
 
+const randomNumber = Math.floor(Math.random() * phrases.length);
+
 // listen for the start game button to be pressed
 startButton[0].addEventListener('click', (e) => {
     const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
 });
-const randomNumber = Math.floor(Math.random() * phrases.length);
+
 // return a random phrase from an array
 function getRandomPhraseAsArray(arr) {
     let Phrase = arr[randomNumber];
@@ -36,13 +38,18 @@ function addPhraseToDisplay(arr) {
     for (let i = 0; i < arr.length; i += 1) {
         let letter = arr[i];
         const li = document.createElement('li');
-        const span = document.createElement('span');  
-        span.textContent = letter;
-        li.appendChild(span);
+        const span = document.createElement('span'); 
+        li.textContent = letter;
         phrase.appendChild(li);
+        if (letter === " ") {
+            li.className = 'space';
+          } else {
+            li.className = 'letter';
+        } 
     }
 }
 addPhraseToDisplay(randomPhrase);
+
 // adds the letters of a string to the display
 // const addPhraseToDisplay = arr => {
     
