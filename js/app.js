@@ -1,16 +1,10 @@
-// Get the element with the id of qwerty and save it to a variable.
 const qwerty = document.getElementById('qwerty');
-
-// Get the element with the id of phrase and save it to a variable.
 const phrase = document.querySelector('#phrase ul');
-
-//Get the element with a class of btn__reset and save it to a variable
 const startButton = document.querySelector('.btn__reset');
-
-//Create a missed variable, initialized to 0, that you’ll use later to keep track of the number of guesses the player has missed
+const overlay = document.querySelector('.start');
+const winText = document.querySelector('.title');
+const ul = document.querySelector('ul');
 let missed = 0;
-
-//Declare and initialize the phrases array, storing at least five strings that contain only letters and spaces, no punctuation.
 const phrases = [
     "chocolate chip",
     "vanilla bean",
@@ -21,21 +15,17 @@ const phrases = [
     "cookie dough"
 ];
 
-const randomNumber = Math.floor(Math.random() * phrases.length);
-
-// listen for the start game button to be pressed
 startButton.addEventListener('click', (e) => {
-    const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
 });
 
-// return a random phrase from an array
 function getRandomPhraseAsArray(arr) {
+    const randomNumber = Math.floor(Math.random() * phrases.length);
     let Phrase = arr[randomNumber];
     console.log(Phrase);
     return Phrase;
 }
-// adds the letters of a string to the display
+
 const randomPhrase = getRandomPhraseAsArray(phrases);
 function addPhraseToDisplay(arr) {
     for (let i = 0; i < arr.length; i += 1) {
@@ -53,21 +43,6 @@ function addPhraseToDisplay(arr) {
 }
 addPhraseToDisplay(randomPhrase);
 
-//check if a letter is in the phrase
-function checkLetter(arr) {
-    const LILetters = document.querySelectorAll('.letter')
-    let match = null;
-    // console.log(letters);
-    for (let i = 0; i < LILetters.length; i += 1) {
-        if (LILetters[i].textContent === arr.textContent) {
-            LILetters[i].classList.add('show');
-            match = arr.textContent;
-        }
-    }
-    return match;   
-}
-
-// listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', (e) => {
     if(e.target.tagName === 'BUTTON' && e.target.className != 'chosen'){
         const button = e.target;
@@ -78,9 +53,46 @@ qwerty.addEventListener('click', (e) => {
             const heart = document.querySelectorAll('img');
             heart[missed].setAttribute('src', 'images/lostHeart.png');
             missed ++;
-        } else {
-
         }
     }
+    checkWin();
 });
+
+const LILetters = document.querySelectorAll('.letter')
+function checkLetter(arr) {
+    let match = null;
+    for (let i = 0; i < LILetters.length; i += 1) {
+        const li = LILetters[i];
+        if (li.textContent === arr.textContent) {
+            li.classList.add('show');
+            li.style.transition = "all .5s ease";
+            match = arr.textContent;
+        }
+    } 
+    return match;   
+}
+
+function reloadGame() {
+    startButton.addEventListener('click', (e) => {
+        ul.style.display = 'none';
+        location.reload();
+    });
+}
+
+function checkWin() {
+    const LIShow = document.querySelectorAll('.show');
+    const LILetter = document.querySelectorAll('.letter');
+    if (LILetter.length === LIShow.length) {
+        overlay.style.display = 'flex';
+        overlay.className='win';
+        winText.textContent = 'You Win!';
+        startButton.textContent = 'Replay';
+    } else if (missed > 4) {
+        overlay.style.display = 'flex';
+        overlay.className='lose';
+        winText.textContent = 'You Lose!';
+        startButton.textContent = 'Replay';
+    }
+    reloadGame();
+}
 
