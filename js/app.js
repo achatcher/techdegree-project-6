@@ -12,11 +12,13 @@ let missed = 0;
 
 //Declare and initialize the phrases array, storing at least five strings that contain only letters and spaces, no punctuation.
 const phrases = [
-    "If you suspect deceit hit delete",
-    "Think before you click",
-    "If you see something say something",
-    "Amateurs hack systems professionals hack people",
-    "Its not data but people being eploited"
+    "chocolate chip",
+    "vanilla bean",
+    "blue moon",
+    "moose tracks",
+    "cake batter",
+    "cherry garcia",
+    "cookie dough"
 ];
 
 const randomNumber = Math.floor(Math.random() * phrases.length);
@@ -33,7 +35,8 @@ function getRandomPhraseAsArray(arr) {
     console.log(Phrase);
     return Phrase;
 }
-randomPhrase = getRandomPhraseAsArray(phrases);
+// adds the letters of a string to the display
+const randomPhrase = getRandomPhraseAsArray(phrases);
 function addPhraseToDisplay(arr) {
     for (let i = 0; i < arr.length; i += 1) {
         let letter = arr[i];
@@ -50,23 +53,33 @@ function addPhraseToDisplay(arr) {
 }
 addPhraseToDisplay(randomPhrase);
 
-// adds the letters of a string to the display
-// const addPhraseToDisplay = arr => {
-    
-// }
-
-// check if a letter is in the phrase
-// const checkLetter = arr => {
-    
-// }
-
-// check if the game has been won or lost
-// const checkWin = arr => {
-    
-// }
-
+//check if a letter is in the phrase
+function checkLetter(arr) {
+    const LILetters = document.querySelectorAll('.letter')
+    let match = null;
+    // console.log(letters);
+    for (let i = 0; i < LILetters.length; i += 1) {
+        if (LILetters[i].textContent === arr.textContent) {
+            LILetters[i].classList.add('show');
+            match = arr.textContent;
+        }
+    }
+    return match;   
+}
 
 // listen for the onscreen keyboard to be clicked
-// qwerty.addEventListener('click', (e) => {
+qwerty.addEventListener('click', (e) => {
+    if(e.target.tagName === 'BUTTON' && e.target.className != 'chosen'){
+        const button = e.target;
+        button.className = 'chosen';
+        button.setAttribute("disabled", "");
+        const foundLetter = checkLetter(button);
+        if (foundLetter === null) {
+            const heart = document.querySelectorAll('img');
+            heart[missed].setAttribute('src', 'images/lostHeart.png');
+            missed ++;
+        } else {
 
-// });
+        }
+    }
+});
