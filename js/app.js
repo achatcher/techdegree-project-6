@@ -5,7 +5,7 @@ const qwerty = document.getElementById('qwerty');
 const phrase = document.querySelector('#phrase ul');
 
 //Get the element with a class of btn__reset and save it to a variable
-const startButton = document.getElementsByClassName('btn__reset');
+const startButton = document.querySelector('.btn__reset');
 
 //Create a missed variable, initialized to 0, that you’ll use later to keep track of the number of guesses the player has missed
 let missed = 0;
@@ -24,7 +24,7 @@ const phrases = [
 const randomNumber = Math.floor(Math.random() * phrases.length);
 
 // listen for the start game button to be pressed
-startButton[0].addEventListener('click', (e) => {
+startButton.addEventListener('click', (e) => {
     const overlay = document.getElementById('overlay');
     overlay.style.display = 'none';
 });
@@ -83,3 +83,4 @@ qwerty.addEventListener('click', (e) => {
         }
     }
 });
+
